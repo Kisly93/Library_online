@@ -11,9 +11,9 @@ def render_website(data_file):
     os.makedirs("pages", exist_ok=True)
 
     with open(data_file, "r") as all_books:
-        books_json = all_books.read()
+        books = json.load(all_books)
 
-    books = json.loads(books_json)
+
     books_per_page = 10
     pages = list(chunked(books, books_per_page))
 
