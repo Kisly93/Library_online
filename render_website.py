@@ -1,15 +1,16 @@
 import json
 import os
+import argparse
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 
 
-def render_website():
+def render_website(data_file):
     os.makedirs("pages", exist_ok=True)
 
-    with open("media/all_books.json", "r") as all_books:
+    with open(data_file, "r") as all_books:
         books_json = all_books.read()
 
     books = json.loads(books_json)
@@ -33,7 +34,15 @@ def render_website():
 
 
 if __name__ == "__main__":
-    render_website()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--data-file",
+        default="media/all_books.json",
+        help="Path to the data file"
+    )
+    args = parser.parse_args()
+
+    render_website(args.data_file)
 
     server = Server()
     server.watch('template.html', render_website)
