@@ -8,9 +8,9 @@ from more_itertools import chunked
 
 
 def render_website(data_file):
-    os.makedirs("pages", exist_ok=True)
+    os.makedirs('pages', exist_ok=True)
 
-    with open(data_file, "r") as all_books:
+    with open(data_file, 'r') as all_books:
         books = json.load(all_books)
 
 
@@ -28,17 +28,17 @@ def render_website(data_file):
         rendered_page = template.render(books=page, current_page=page_num, total_pages=len(pages))
 
         page_filename = f'pages/index{page_num}.html'
-        with open(page_filename, 'w', encoding="utf8") as file:
+        with open(page_filename, 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--data-file",
-        default="media/all_books.json",
-        help="Path to the data file"
+        '--data-file',
+        default='media/all_books.json',
+        help='Path to the data file'
     )
     args = parser.parse_args()
 
