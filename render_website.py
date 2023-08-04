@@ -7,10 +7,10 @@ from livereload import Server
 from more_itertools import chunked
 
 
-def render_website(data_file):
+def render_website(json_path):
     os.makedirs('pages', exist_ok=True)
 
-    with open(data_file, 'r') as all_books:
+    with open(json_path, 'r') as all_books:
         books = json.load(all_books)
 
 
@@ -36,13 +36,13 @@ def render_website(data_file):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--data-file',
+        '--json-path',
         default='media/all_books.json',
         help='Path to the data file'
     )
     args = parser.parse_args()
 
-    render_website(args.data_file)
+    render_website(args.json_path)
 
     server = Server()
     server.watch('template.html', render_website)
